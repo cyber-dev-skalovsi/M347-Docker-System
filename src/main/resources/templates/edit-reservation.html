@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Reservation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex items-center justify-center">
+<div class="bg-white p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 glow-effect w-full max-w-lg">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Edit Reservation</h1>
+
+    <!-- Display error messages -->
+    <div th:if="${error}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <span th:text="${error}"></span>
+    </div>
+
+    <form th:action="@{/reservation/edit/{privateKey}(privateKey=${reservation.privateKey})}"
+          th:object="${reservation}" method="post" class="space-y-4">
+
+        <!-- Date Field -->
+        <div class="flex flex-col">
+            <label for="date" class="text-gray-700 font-medium">Date:</label>
+            <input type="date" id="date" th:field="*{date}" required
+                   class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+            <div th:if="${#fields.hasErrors('date')}" class="text-red-500 text-sm mt-1" th:errors="*{date}"></div>
+        </div>
+
+        <!-- Time Fields -->
+        <div class="flex space-x-4">
+            <div class="flex-1 flex flex-col">
+                <label for="fromTime" class="text-gray-700 font-medium">From:</label>
+                <input type="time" id="fromTime" th:field="*{fromTime}" required
+                       class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                <div th:if="${#fields.hasErrors('fromTime')}" class="text-red-500 text-sm mt-1" th:errors="*{fromTime}"></div>
+            </div>
+            <div class="flex-1 flex flex-col">
+                <label for="toTime" class="text-gray-700 font-medium">To:</label>
+                <input type="time" id="toTime" th:field="*{toTime}" required
+                       class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                <div th:if="${#fields.hasErrors('toTime')}" class="text-red-500 text-sm mt-1" th:errors="*{toTime}"></div>
+            </div>
+        </div>
+
+        <!-- Room Field -->
+        <div class="flex flex-col">
+            <label for="room" class="text-gray-700 font-medium">Room:</label>
+            <select id="room" th:field="*{room}" required
+                    class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                <option value="">Select a room</option>
+                <option value="101">101</option>
+                <option value="102">102</option>
+                <option value="103">103</option>
+                <option value="104">104</option>
+                <option value="105">105</option>
+            </select>
+            <div th:if="${#fields.hasErrors('room')}" class="text-red-500 text-sm mt-1" th:errors="*{room}"></div>
+        </div>
+
+        <!-- Comment Field -->
+        <div class="flex flex-col">
+            <label for="comment" class="text-gray-700 font-medium">Comment:</label>
+            <textarea id="comment" th:field="*{comment}" required
+                      class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 h-24"
+                      placeholder="Brief description of the meeting purpose"></textarea>
+            <div th:if="${#fields.hasErrors('comment')}" class="text-red-500 text-sm mt-1" th:errors="*{comment}"></div>
+        </div>
+
+        <!-- Participants Field -->
+        <div class="flex flex-col">
+            <label for="participants" class="text-gray-700 font-medium">Participants:</label>
+            <textarea id="participants" name="participants" required
+                      class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 h-32"
+                      placeholder="Enter participant names, one per line or separated by commas&#10;John Doe&#10;Jane Smith"
+                      th:text="${participantsString}"></textarea>
+            <small class="text-gray-500 text-sm mt-1">Enter each participant's full name on a new line or separated by commas.</small>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex space-x-4">
+            <button type="submit"
+                    class="flex-1 bg-yellow-600 text-white py-3 rounded-lg hover:bg-yellow-700 transition duration-300 glow-button">
+                Update Reservation
+            </button>
+            <a th:href="@{/reservation/view/{privateKey}(privateKey=${reservation.privateKey})}"
+               class="flex-1 bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition duration-300 text-center">
+                Cancel
+            </a>
+        </div>
+    </form>
+
+    <!-- Back to Home Link -->
+    <div class="text-center mt-4">
+        <a th:href="@{/}" class="text-blue-600 hover:text-blue-800 transition duration-200">
+            Back to Home
+        </a>
+    </div>
+</div>
+</body>
+</html>

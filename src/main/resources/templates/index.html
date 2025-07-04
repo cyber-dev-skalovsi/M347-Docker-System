@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Room Reservation System</h1>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Welcome</h5>
+                    <p class="card-text">Create a new reservation or access an existing one using your key.</p>
+
+                    <div class="d-grid gap-2 mb-3">
+                        <a href="/reservation/create" class="btn btn-primary btn-lg">Create New Reservation</a>
+                    </div>
+
+                    <hr>
+
+                    <form th:action="@{/access}" method="post">
+                        <div class="mb-3">
+                            <label for="key" class="form-label">Access Existing Reservation</label>
+                            <input type="text" class="form-control" id="key" name="key"
+                                   placeholder="Enter your public or private key" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Access Reservation</button>
+                    </form>
+
+                    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="/reservation/list" class="btn btn-outline-info">View All Reservations</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

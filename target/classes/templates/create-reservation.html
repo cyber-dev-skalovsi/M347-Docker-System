@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Reservation</title>
+    <link rel="stylesheet" th:href="@{/css/liquid-glass.css}">
+</head>
+<body>
+<div class="page-enter" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+    <div class="glass-container floating-element" style="max-width: 800px; width: 100%;">
+        <h1 class="glass-title text-center" style="font-size: 2.5rem; margin-bottom: 2rem;">
+            Create New Reservation
+        </h1>
+
+        <div class="glass-card">
+            <form th:action="@{/reservation/create}" th:object="${reservation}" method="post">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="glass-form-group">
+                        <label for="date" class="glass-label">Date</label>
+                        <input type="date" class="glass-input" id="date" th:field="*{date}" required>
+                        <div th:if="${#fields.hasErrors('date')}" class="glass-alert glass-alert-danger" style="margin-top: 0.5rem; padding: 0.5rem;" th:errors="*{date}"></div>
+                    </div>
+                    <div class="glass-form-group">
+                        <label for="fromTime" class="glass-label">From Time</label>
+                        <input type="time" class="glass-input" id="fromTime" th:field="*{fromTime}" required>
+                        <div th:if="${#fields.hasErrors('fromTime')}" class="glass-alert glass-alert-danger" style="margin-top: 0.5rem; padding: 0.5rem;" th:errors="*{fromTime}"></div>
+                    </div>
+                    <div class="glass-form-group">
+                        <label for="toTime" class="glass-label">To Time</label>
+                        <input type="time" class="glass-input" id="toTime" th:field="*{toTime}" required>
+                        <div th:if="${#fields.hasErrors('toTime')}" class="glass-alert glass-alert-danger" style="margin-top: 0.5rem; padding: 0.5rem;" th:errors="*{toTime}"></div>
+                    </div>
+                </div>
+
+                <div class="glass-form-group">
+                    <label for="room" class="glass-label">Room</label>
+                    <select class="glass-select" id="room" th:field="*{room}" required>
+                        <option value="">Select a room</option>
+                        <option value="101">Room 101</option>
+                        <option value="102">Room 102</option>
+                        <option value="103">Room 103</option>
+                        <option value="201">Room 201</option>
+                        <option value="202">Room 202</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('room')}" class="glass-alert glass-alert-danger" style="margin-top: 0.5rem; padding: 0.5rem;" th:errors="*{room}"></div>
+                </div>
+
+                <div class="glass-form-group">
+                    <label for="comment" class="glass-label">Comment/Purpose</label>
+                    <textarea class="glass-textarea" id="comment" th:field="*{comment}" rows="3"
+                              placeholder="Brief description of the meeting purpose" required></textarea>
+                    <div th:if="${#fields.hasErrors('comment')}" class="glass-alert glass-alert-danger" style="margin-top: 0.5rem; padding: 0.5rem;" th:errors="*{comment}"></div>
+                </div>
+
+                <div class="glass-form-group">
+                    <label for="participants" class="glass-label">Participants</label>
+                    <textarea class="glass-textarea" id="participants" name="participants" rows="4"
+                              placeholder="Enter participant names, one per line or separated by commas:&#10;John Doe&#10;Jane Smith&#10;Bob Johnson" required></textarea>
+                    <small class="glass-text-muted" style="display: block; margin-top: 0.5rem;">
+                        Enter each participant's full name on a new line or separated by commas.
+                    </small>
+                </div>
+
+                <div th:if="${error}" class="glass-alert glass-alert-danger" th:text="${error}"></div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="glass-button glass-button-success" style="padding: 1rem;">
+                        Create Reservation
+                    </button>
+                    <a href="/" class="glass-button glass-button-secondary" style="padding: 1rem; text-align: center; text-decoration: none;">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media (max-width: 768px) {
+        .glass-container {
+            margin: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+
+        div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+</body>
+</html>

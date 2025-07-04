@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Confirmed</title>
+    <link rel="stylesheet" th:href="@{/css/liquid-glass.css}">
+</head>
+<body>
+<div class="page-enter" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+    <div class="glass-container floating-element pulse-glow" style="max-width: 500px; width: 100%; text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">✨</div>
+        <h1 class="glass-title" style="font-size: 2.5rem; margin-bottom: 2rem; background: var(--success-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            Reservation Confirmed!
+        </h1>
+
+        <div class="glass-card" style="text-align: left; margin-bottom: 2rem;">
+            <p class="glass-text" style="margin-bottom: 1.5rem; text-align: center;">
+                Your reservation has been successfully created.
+            </p>
+
+            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                <p class="glass-text" style="margin-bottom: 1rem;">
+                    <strong class="glass-title" style="font-size: 1rem;">Public Key:</strong>
+                </p>
+                <div class="glass-code" style="word-break: break-all; padding: 0.75rem; background: rgba(0, 0, 0, 0.3);">
+                    <span th:text="${reservation.publicKey}"></span>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.5rem;">
+                <p class="glass-text" style="margin-bottom: 1rem;">
+                    <strong class="glass-title" style="font-size: 1rem;">Private Key:</strong>
+                    <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">(Keep this secure!)</span>
+                </p>
+                <div class="glass-code" style="word-break: break-all; padding: 0.75rem; background: rgba(0, 0, 0, 0.3);">
+                    <span th:text="${reservation.privateKey}"></span>
+                </div>
+            </div>
+
+            <div class="glass-alert glass-alert-info" style="margin-top: 1.5rem; text-align: center;">
+                <p class="glass-text" style="margin: 0; font-size: 0.9rem;">
+                    💡 Save both keys! Use the public key to view your reservation, and the private key to edit it.
+                </p>
+            </div>
+        </div>
+
+        <a th:href="@{/}" class="glass-button glass-button-success" style="padding: 1rem 2rem; text-decoration: none; display: inline-block;">
+            Back to Home
+        </a>
+    </div>
+</div>
+</body>
+</html>

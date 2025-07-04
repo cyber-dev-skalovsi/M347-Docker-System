@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Reservation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Create New Reservation</h1>
+
+            <div class="card">
+                <div class="card-body">
+                    <form th:action="@{/reservation/create}" th:object="${reservation}" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="date" th:field="*{date}" required>
+                                    <div th:if="${#fields.hasErrors('date')}" class="text-danger" th:errors="*{date}"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="fromTime" class="form-label">From Time</label>
+                                    <input type="time" class="form-control" id="fromTime" th:field="*{fromTime}" required>
+                                    <div th:if="${#fields.hasErrors('fromTime')}" class="text-danger" th:errors="*{fromTime}"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="toTime" class="form-label">To Time</label>
+                                    <input type="time" class="form-control" id="toTime" th:field="*{toTime}" required>
+                                    <div th:if="${#fields.hasErrors('toTime')}" class="text-danger" th:errors="*{toTime}"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="room" class="form-label">Room</label>
+                            <select class="form-control" id="room" th:field="*{room}" required>
+                                <option value="">Select a room</option>
+                                <option value="101">Room 101</option>
+                                <option value="102">Room 102</option>
+                                <option value="103">Room 103</option>
+                                <option value="201">Room 201</option>
+                                <option value="202">Room 202</option>
+                            </select>
+                            <div th:if="${#fields.hasErrors('room')}" class="text-danger" th:errors="*{room}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Comment/Purpose</label>
+                            <textarea class="form-control" id="comment" th:field="*{comment}" rows="3"
+                                      placeholder="Brief description of the meeting purpose" required></textarea>
+                            <div th:if="${#fields.hasErrors('comment')}" class="text-danger" th:errors="*{comment}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="participants" class="form-label">Participants</label>
+                            <textarea class="form-control" id="participants" name="participants" rows="4"
+                                      placeholder="Enter participant names, one per line or separated by commas:&#10;John Doe&#10;Jane Smith&#10;Bob Johnson" required></textarea>
+                            <small class="form-text text-muted">Enter each participant's full name on a new line or separated by commas.</small>
+                        </div>
+
+                        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Create Reservation</button>
+                            <a href="/" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Reservation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex items-center justify-center">
+<div class="bg-white p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 glow-effect w-full max-w-md">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Reservation Details</h1>
+    <div class="space-y-4" th:if="${reservation != null}">
+        <p class="text-gray-700"><strong>Date:</strong> <span th:text="${#temporals.format(reservation.date, 'yyyy-MM-dd')}"></span></p>
+        <p class="text-gray-700"><strong>Time:</strong> <span th:text="${#temporals.format(reservation.fromTime, 'HH:mm')}"></span> - <span th:text="${#temporals.format(reservation.toTime, 'HH:mm')}"></span></p>
+        <p class="text-gray-700"><strong>Room:</strong> <span th:text="${reservation.room}"></span></p>
+        <p class="text-gray-700"><strong>Comment:</strong> <span th:text="${reservation.comment}"></span></p>
+        <div class="text-gray-700">
+            <strong>Participants:</strong>
+            <ul class="list-disc pl-5 mt-2" th:if="${participants != null and !#lists.isEmpty(participants)}">
+                <li th:each="participant : ${participants}" th:text="${participant.fullName}"></li>
+            </ul>
+            <p th:if="${participants == null or #lists.isEmpty(participants)}" class="text-gray-500 italic ml-4">No participants listed</p>
+        </div>
+        <a th:href="@{/reservation/edit/{privateKey}(privateKey=${reservation.privateKey})}" class="inline-block bg-yellow-600 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 transition duration-300 glow-button">Edit</a>
+    </div>
+    <p th:if="${reservation == null}" class="text-red-600 text-center">Reservation not found with the provided key.</p>
+    <a th:href="@{/}" class="mt-4 inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 glow-button">Back to Home</a>
+</div>
+</body>
+</html>

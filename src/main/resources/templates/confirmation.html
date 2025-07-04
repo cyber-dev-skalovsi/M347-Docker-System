@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Confirmed</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex items-center justify-center">
+<div class="bg-white p-8 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 glow-effect w-full max-w-md text-center">
+    <h1 class="text-3xl font-bold text-green-600 mb-6">Reservation Confirmed!</h1>
+    <p class="text-gray-700 mb-4">Your reservation has been successfully created.</p>
+    <p class="text-gray-700 mb-4"><strong>Public Key:</strong> <span th:text="${reservation.publicKey}"></span></p>
+    <p class="text-gray-700 mb-4"><strong>Private Key:</strong> <span th:text="${reservation.privateKey}"></span> (Keep this secure!)</p>
+    <a th:href="@{/}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 glow-button">Back to Home</a>
+</div>
+</body>
+</html>

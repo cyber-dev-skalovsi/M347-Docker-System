@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Reservations</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center mb-4">All Reservations</h1>
+
+      <div class="mb-3">
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+        <a href="/reservation/create" class="btn btn-primary">Create New Reservation</a>
+      </div>
+
+      <div th:if="${reservations != null and !#lists.isEmpty(reservations)}">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Room</th>
+              <th>Comment</th>
+              <th>Participants</th>
+              <th>Public Key</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reservation : ${reservations}">
+              <td th:text="${#temporals.format(reservation.date, 'yyyy-MM-dd')}"></td>
+              <td>
+                <span th:text="${#temporals.format(reservation.fromTime, 'HH:mm')}"></span>
+                -
+                <span th:text="${#temporals.format(reservation.toTime, 'HH:mm')}"></span>
+              </td>
+              <td th:text="${reservation.room}"></td>
+              <td th:text="${reservation.comment}"></td>
+              <td>
+                <div th:if="${reservation.participants != null and !#lists.isEmpty(reservation.participants)}">
+                                        <span th:each="participant, iterStat : ${reservation.participants}">
+                                            <span th:text="${participant.fullName}"></span>
+                                            <span th:if="${!iterStat.last}">, </span>
+                                        </span>
+                </div>
+                <span th:if="${reservation.participants == null or #lists.isEmpty(reservation.participants)}" class="text-muted">No participants</span>
+              </td>
+              <td>
+                <code th:text="${reservation.publicKey}"></code>
+              </td>
+              <td>
+                <a th:href="@{/reservation/view/{key}(key=${reservation.publicKey})}"
+                   class="btn btn-sm btn-outline-primary">View</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div th:if="${reservations == null or #lists.isEmpty(reservations)}" class="text-center">
+        <div class="alert alert-info">
+          <h4>No Reservations Found</h4>
+          <p>There are currently no reservations in the system.</p>
+          <a href="/reservation/create" class="btn btn-primary">Create Your First Reservation</a>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <small class="text-muted">
+          Total Reservations: <span th:text="${reservations != null ? reservations.size() : 0}"></span>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

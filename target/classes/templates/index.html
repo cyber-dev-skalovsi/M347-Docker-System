@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation System</title>
+    <link rel="stylesheet" th:href="@{/css/liquid-glass.css}">
+</head>
+<body>
+<div class="page-enter" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+    <div class="glass-container floating-element" style="max-width: 600px; width: 100%;">
+        <h1 class="glass-title text-center" style="font-size: 2.5rem; margin-bottom: 2rem;">
+            Room Reservation System
+        </h1>
+
+        <div class="glass-card">
+            <h5 class="glass-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Welcome</h5>
+            <p class="glass-text" style="margin-bottom: 2rem;">Create a new reservation or access an existing one using your key.</p>
+
+            <div style="margin-bottom: 2rem;">
+                <a href="/reservation/create" class="glass-button glass-button-success" style="width: 100%; text-align: center; display: block; text-decoration: none; padding: 1rem;">
+                    Create New Reservation
+                </a>
+            </div>
+
+            <div style="height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); margin: 2rem 0;"></div>
+
+            <form th:action="@{/access}" method="post">
+                <div class="glass-form-group">
+                    <label for="key" class="glass-label">Access Existing Reservation</label>
+                    <input type="text" class="glass-input" id="key" name="key"
+                           placeholder="Enter your public or private key" required>
+                </div>
+                <button type="submit" class="glass-button glass-button-secondary" style="width: 100%;">
+                    Access Reservation
+                </button>
+            </form>
+
+            <div th:if="${error}" class="glass-alert glass-alert-danger" style="margin-top: 1rem;">
+                <span th:text="${error}"></span>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 2rem;">
+            <a href="/reservation/list" class="glass-link" style="font-size: 1.1rem;">
+                View All Reservations
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
